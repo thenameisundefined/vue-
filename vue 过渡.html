@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="vue.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <transition name="bounce">
+                <div class="bounce" v-show="isShow" @click="isShow = !isShow">
+                </div>
+            </transition> 
+        </div>
+    </body>
+    <script>
+        new Vue({
+            el:"#app",
+            data(){
+                return{
+                    isShow:true
+                }
+            }
+        })
+    </script>
+</html>
+<style>
+.bounce-enter-active,.bounce-leave-active{
+    transition: width 3s;
+}
+.bounce{
+    width: 100px;
+    height: 200px;
+    background-color: aqua;
+}
+.bounce-enter,.bounce-leave-to{
+    width: 200px;
+    height: 100px;
+}
+.bounce-leave,.bounce-enter-to{
+    width: 0;
+    height: 0;
+}
+</style>

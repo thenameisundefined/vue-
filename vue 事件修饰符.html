@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>
+            Vue 事件修饰符
+        </title>
+        <meta charset="utf-8">
+        <script src="vue.min.js"></script>
+    </head>
+    <body>
+        <div id="app" @click="parent">
+            <button @click="children">
+                点击
+            </button>
+            <button @click.stop="children">
+                点击（stop）
+            </button>
+            <a href="https://www.baidu.com/">前往百度</a>
+            <a href="https://www.baidu.com/" @click.prevent>前往百度(被阻止（prevent修饰符）)</a>
+        </div>
+    </body>
+    <script>
+        new Vue({
+            el:"#app",
+            data(){
+                return{
+
+                }
+            },
+            methods:{
+                parent(){
+                    console.log('this is parent');
+                },
+                children(){
+                    console.log('this is kids');
+                }
+            }
+        })
+    </script>
+</html>

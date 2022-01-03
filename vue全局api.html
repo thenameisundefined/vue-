@@ -1,0 +1,74 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app" v-my-style>
+        <!-- Vue.directive自定义指令 -->
+        <input type="text" v-focus="true" style = "margin-top:100px"/>
+    </div>
+    <div id="app1">
+        {{msg}}
+        {{obj.b}}
+    </div>
+</body>
+<script>
+    let Myplugin = {}
+    Myplugin.install = function (Vue, options) {
+        console.log(options)
+        Vue.directive('my-style', {
+            bind(el, binding) {
+                el.style = 'width:100px;height:100px;background-color:#ccc;'
+            }
+        })
+    }
+    // vue.use 安装插件,插件可以是对象、函数,如果是对象,需要通过install方法
+    Vue.use(Myplugin, { options: true })
+    // vue.extend 创建一个vue子类
+    var vue1 = Vue.extend({    
+    data(){
+        return{
+        msg:'hello',
+        obj:{
+
+        }
+    }
+    }
+    })
+    // Vue.set用于向对象添加一个属性
+    var vm = new vue1({
+        el:'#app1'
+    })
+    // Vue.mixin 全局注入混入
+    Vue.mixin({
+        created(){
+            var myOption = this.$options.myOption
+            if(myOption){
+                console.log(myOption.toUpperCase())
+            }
+        }
+    })
+    Vue.set(vm.obj,'b','添加一个对象');
+    // 使用inserted钩子函数进行评定
+    Vue.directive('focus', {
+        inserted(el, binding) {
+            if (binding.value) {
+                el.focus()
+            }
+        }
+    })
+    new Vue({
+        el: '#app',
+        myOption:'hello vue',
+        data() {
+            return {
+
+            }
+        }
+    })
+</script>
+
+</html>

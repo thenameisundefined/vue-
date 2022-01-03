@@ -1,0 +1,65 @@
+<html>
+
+<head>
+    <title>
+        vue 组件
+    </title>
+    <meta charset="utf-8">
+    <script src="vue.min.js"></script>
+</head>
+<div id="app">
+    <parent></parent>
+</div>
+<template id="mycomponent">
+    <div>
+        <button @click="add">{{count}}</button>
+        <div>
+            <slot name="my-slot"></slot>
+        </div>
+    </div>
+</template>
+<template id="parent">
+    <div>
+        <mycomponent  @changeCount="changeCount">
+        </mycomponent>
+        <h1>{{msg}}</h1>
+    </div>
+</template>
+<script>
+    Vue.component('mycomponent', {
+        template: "#mycomponent",
+        data() {
+            return {
+                count: 1
+            }
+        },
+        methods: {
+            add() {
+                this.$emit('changeCount', this.count);
+                this.count++;
+            }
+        },
+        props: {
+            msg: Number
+        }
+    })
+    Vue.component('parent', {
+        template: "#parent",
+        data() {
+            return {
+                msg: 0
+            }
+        },
+        methods: {
+            changeCount (count) {
+                console.log(count);
+                this.msg = count;
+            }
+        }
+    })
+    new Vue({
+        el: "#app"
+    })
+</script>
+
+</html>

@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="vue.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <my-component>
+                <template #header>
+                    <div>this is header</div>
+                </template>
+                <template #footer>
+                    <div>
+                        this is footer
+                    </div>
+                </template>
+            </my-component>
+        </div>
+    </body>
+    <script>
+        Vue.component('my-component',{
+            render(createElement){
+                return createElement('div',
+                    {
+                        style:{
+                            color:'blue',
+                            border: 'red solid 1px'
+                        }
+                    },
+                    [
+                    createElement('header',this.$slots.header),
+                    createElement('footer',this.$slots.footer)
+                    ])
+                }
+        })
+        new Vue({
+            el:"#app"
+        })
+    </script>
+</html>

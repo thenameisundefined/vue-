@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="vue.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <first-kid>
+            </first-kid>
+            <second-kid>
+            </second-kid>
+        </div>
+    </body>
+    <script>
+        Vue.component('first-kid',{
+            template:`
+            <div>
+                <p>{{msg}}</p>
+                <button @click="submit()">传递消息</button>
+            </div>
+            `,
+            data(){
+                return{
+                    msg:'first-kid msg'
+                }
+            },
+            methods:{
+                submit(){
+                 this.$parent.on(this.msg);
+                }
+            }
+        })
+        Vue.component('second-kid',{
+            template:`
+            <div>
+                <p>组件二</p>
+                <p>接受的消息：{{msg}}</p>
+                <button @click=" getData()">接收消息</button>
+            </div>
+            `,
+            data(){
+                return{
+                    msg:''
+                }
+            },
+            methods:{
+                getData(){
+                   this.msg =  this.$parent.emit();
+                }
+            }
+        })
+        new Vue({
+            el:"#app",
+            data(){
+                return{
+                    msg:''
+                }
+            },
+            methods:{
+                on(newValue){
+                    this.msg = newValue;
+                },
+                emit(){
+                    return this.msg;
+                }
+            }
+        })
+    </script>
+</html>

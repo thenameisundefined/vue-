@@ -1,0 +1,70 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <first-kid>
+            <second-kid>
+            </second-kid>
+        </first-kid>
+    </div>
+</body>
+<script>
+    Vue.component('first-kid', {
+        template: `
+            <div>
+               <slot></solt>
+            </div>
+            `,
+        data() {
+            return {
+                msg: ''
+            }
+        },
+        methods: {
+            onSomeEvent(newValue) {
+                this.msg = newValue;
+            }
+        }
+    })
+    Vue.component('second-kid', {
+        template: `
+            <div>
+                后代组件获得的消息：{{kidMsg}}
+            </div>
+            `,
+        data() {
+            return {
+                kidMsg: ''
+            }
+        },
+        methods: {
+            
+        },
+        inject:['msg'],
+        created(){
+            this.kidMsg = this.msg;
+        }
+    })
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                msg: ''
+            }
+        },
+        methods: {
+        },
+        provide() {
+            return {
+                msg: 'grand msg'
+            }
+        }
+    })
+</script>
+
+</html>

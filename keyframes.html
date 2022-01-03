@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="vue.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <button @click="changeShow">确定</button>
+            <transition name="bounce">
+                <div class="bounce" v-if="isShow ==='A'" key="A"></div>
+                <div class="bounce" v-if="isShow ==='B'" key="B"></div>
+                <div class="bounce" v-if="isShow ==='C'" key="C"></div>
+            </transition> 
+        </div>
+    </body>
+    <script>
+        new Vue({
+            el:"#app",
+            data(){
+                return{
+                    isShow:'A'
+                }
+            },
+            methods:{
+                changeShow(){
+                    if (this.isShow === 'A'){
+                        this.isShow = 'B';
+                    } else if (this.isShow === 'B') {
+                        this.isShow = 'C';
+                    } else if (this.isShow === 'C') {
+                        this.isShow = 'A';
+                    }
+                }
+            }
+        })
+    </script>
+</html>
+<style>
+.bounce{
+    background-color:burlywood;
+    width: 200px;
+    height: 200px;
+}
+.bounce-enter-active,.bounce-leave-active{
+    width: 100px;
+    height: 100px;
+    transition: width 3s;
+    transition: height 3s;
+}
+</style>

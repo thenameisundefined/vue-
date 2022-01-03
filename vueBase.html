@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>v-bind单向绑定</title>
+        <meta charset="utf-8"/>
+        <script src="vue.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+        <!-- v-model 双向绑定 输入框中内容改变时会改变msg的值-->
+        <input v-model="msg1"/>
+        {{msg1}}
+        <br/>
+        <!-- v-bind单向绑定，输入框中内容改变时不会改变msg的值-->
+        <input :value="msg"/>
+        {{msg}}
+        </div>
+    </body>
+    <script>
+        new Vue({
+            el:'#app',
+            data(){
+                return{
+                    msg:'单向绑定',
+                    msg1:'双向绑定'
+                }
+            }
+        })
+    </script>
+</html>
